@@ -19,7 +19,7 @@ class App extends React.Component {
                     onPaste={this.update}
                     onFocus={this.update}
                     onBlur={this.update}
-                    onDoubleCLick={this.update}
+                    onDoubleClick={this.update}
                     cols="30"
                     rows="10" />
                 <h1>{this.state.currentEvent}</h1>
