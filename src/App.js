@@ -9,11 +9,15 @@ import ReactDOM from 'react-dom';
 class App extends React.Component {
     constructor() {
         super(); // Get context
-        this.state = {val: 0}
+        this.state = {
+            val: 0
+        }
         this.update = this.update.bind(this)
     }
     update() {
-        this.setState({val: this.state.val + 1})
+        this.setState({
+            val: this.state.val + 1
+        })
     }
     componentWillMount() {
         console.log('componentWillMount')
@@ -35,18 +39,19 @@ class App extends React.Component {
 
 class Wrapper extends React.Component {
     mount() {
-        ReactDOM.render(<App />, document.getElementById('a')) // this will render <app>
+        ReactDOM.render(
+            <App/>, document.getElementById('a')) // this will render <app>
     }
     unmount() {
         ReactDOM.unmountComponentAtNode(document.getElementById('a'))
     }
     render() {
-    return (
-        <div>
-            <button onClick={this.mount.bind(this)}>Mount</button>
-            <button onClick={this.unmount.bind(this)}>Unmount</button>
-            <div id='a'></div>
-        </div>
+        return (
+            <div>
+                <button onClick={this.mount.bind(this)}>Mount</button>
+                <button onClick={this.unmount.bind(this)}>Unmount</button>
+                <div id='a'></div>
+            </div>
         )
     }
 }
