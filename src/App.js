@@ -1,49 +1,51 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+
+/* When you remove an element from the dom it is
+*  called unmounting. When you add an element to the
+*  dom it is called mounting.
+*/
 
 class App extends React.Component {
     constructor() {
-        super();
-        this.state = {a: ''}
+        super(); // Get context
+        this.state = {val: 0}
+        this.update = this.update.bind(this)
     }
-    update(e) {
-        this.setState({
-            a: this.refs.a.value,
-            b: this.refs.b.value,
-            c: this.refs.c.value
-        })
+    update() {
+        this.setState({val: this.state.val + 1})
     }
-    render(){
-        return (
-            <div>
-                <center>
-                    <h3>What verse would you like to look up?</h3>
-                    <span>Book:</span>
-                    <select ref="a" onChange={this.update.bind(this)}>
-                        <option value="Genesis">Genesis</option>
-                        <option value="Exodus">Exudus</option>
-                        <option value="Lev">Lev</option>
-                        <option value="Numbers">Numbers</option>
-                    </select> {this.state.a}
-                    <span>Chapter:</span>
-                    <select ref="b" onChange={this.update.bind(this)}>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select> {this.state.b}
-                    <span>Verse:</span>
-                    <select ref="c" onChange={this.update.bind(this)}>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                    </select> {this.state.c}
-                    <hr />
-                    <textarea rows="10" cols="30" placeholder="Leave a Comment Please"></textarea>
-                </center>
-            </div>
+    componentWillMount() {
+        console.log('componentWillMount')
+    }
+    render() {
+        console.log('render');
+        return <button onClick={this.update}>{this.state.val}</button>
+    }
+    componentDidMount() {
+        console.log('componentDidMount')
+    }
+    componentWillUnmount() {
+        console.log('componentWillUnmount')
+    }
+}
+
+class Wrapper extends React.Component {
+    mount() {
+        ReactDOM.render(<App />, document.getElementById('a')) // this will render <app>
+    }
+    unmount() {
+        ReactDOM.unmountComponentAtNode(document.getElementById('a'))
+    }
+    render() {
+    return (
+        <div>
+            <button onClick={this.mount.bind(this)}>Mount</button>
+            <button onClick={this.unmount.bind(this)}>Unmount</button>
+            <div id='a'></div>
+        </div>
         )
     }
 }
 
-export default App
+export default Wrapper // Wrapper renders App
